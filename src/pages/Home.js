@@ -6,6 +6,7 @@ import { styled } from '@mui/system'
 import { Modal, TextField , TableBody , TableCell , TableContainer , TableRow } from '@mui/material'
 import { FormControl , InputLabel  } from '@mui/material'
 import EditModal from '../components/EditModel'
+import { toast } from 'react-hot-toast'
 
 
 const Home = () => {
@@ -52,9 +53,10 @@ const Home = () => {
             },
         })
             .then(response => response.json())
-            .then(data => setPosts([...posts, data]))
+            .then(data => setPosts([...posts, data] , toast.success('post added successfully')))
+            .catch(err=>toast.error('we can not add post !! please try after some time '))
 
-        console.log(posts)
+        
     }
 
     const deletePost = (id) => {
@@ -62,7 +64,8 @@ const Home = () => {
             method: 'DELETE',
         })
             .then(response => response.json())
-            .then(data => setPosts(posts.filter(post => post.id !== id)))
+            .then(data => setPosts(posts.filter(post => post.id !== id),toast.success('post deleted successfully')))
+            .catch(err=>toast.error('we can not delete post !! please try after some time'))
     }
 
     const editPost = (id , title , body ) => {
