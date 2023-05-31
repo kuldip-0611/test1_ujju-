@@ -3,11 +3,12 @@ import Box from '@mui/material/Box'
 import Navbar from '../components/Navbar'
 import { Button } from '@mui/material'
 import { styled } from '@mui/system'
-import { Modal, TextField } from '@mui/material'
+import { Modal, TextField , TableBody , TableCell , TableContainer , TableRow } from '@mui/material'
+import { FormControl , InputLabel  } from '@mui/material'
 import EditModal from '../components/EditModel'
 
 
-const DashboardChart = () => {
+const Home = () => {
 
     // create function for edit delete and add post and pass it to the table component as a prop and then call it in the table component
 
@@ -91,7 +92,7 @@ const DashboardChart = () => {
                 >
                     {/* create add post form  */}
 
-                    <form onSubmit={(e) => {
+                    {/* <form onSubmit={(e) => {
                         e.preventDefault()
                         addPost(title, body, userId)
                     }}>
@@ -99,44 +100,47 @@ const DashboardChart = () => {
                         <input type="text" placeholder="body" value={body} onChange={(e) => setBody(e.target.value)} />
                         <input type="text" placeholder="userId" value={userId} onChange={(e) => setUserId(e.target.value)} />
                         <button type="submit">Add Post</button>
-                    </form>
+                    </form> */}
 
-                    
+
+                    <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+                        <TextField id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                    </FormControl>
+
+                    <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+                        <TextField id="body" value={body} onChange={(e) => setBody(e.target.value)} />
+                    </FormControl>
+
+                    <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+                        <TextField id="userId" value={userId} onChange={(e) => setUserId(e.target.value)} />
+                    </FormControl>
+
+                    <Button onClick={() => addPost(title, body, userId)} variant="contained" color="success">Add Post</Button>
+
                     {
                         loading ? <h1>Loading...</h1> :
-                            <table border="1">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Title</th>
-                                        <th>Body</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            <TableContainer>
+                                <TableBody>
                                     {
                                         posts.map(post => (
-                                            <tr key={post.id}>
-                                                <td>{post.id}</td>
-                                                <td>{post.title}</td>
-                                                <td>{post.body}</td>
-                                                <td>
-                                                <Button onClick={handleOpen} variant="contained" color="primary">
-                                                    Edit
-                                                </Button>
-                                                <EditModal
-                                                    open={open}
-                                                    handleClose={handleClose}
-                                                    post={post}
-                                                    handleUpdate={editPost}
-                                                />
-                                                    <button onClick={() => deletePost(post.id)}>Delete</button>
-                                                </td>
-                                            </tr>
+                                            <TableRow key={post.id}>
+                                                <TableCell>{post.id}</TableCell>
+                                                <TableCell>{post.title}</TableCell>
+                                                <TableCell>{post.body}</TableCell>
+                                                <TableCell>{post.userId}</TableCell>
+                                                <TableCell>
+                                                    <Button onClick={() => deletePost(post.id)} variant="contained" color="error">Delete</Button>
+                                                    <Button onClick={handleOpen} variant="contained" color="primary">Edit</Button>
+                                                    <EditModal open={open} handleClose={handleClose} post={post} handleUpdate={editPost} />
+                                                </TableCell>
+                                            </TableRow>
                                         ))
-                                    }
-                                </tbody>    
-                            </table>
+
+                                        }
+                                </TableBody>
+                            </TableContainer>
+
+
                     }
                 </Box>
                 
@@ -145,4 +149,4 @@ const DashboardChart = () => {
     )
 }
 
-export default DashboardChart
+export default Home
