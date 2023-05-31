@@ -9,7 +9,14 @@ import toast from "react-hot-toast";
 const Login = () => {
   const navigate = useNavigate();
 
-  
+  useEffect(()=>{
+    if(localStorage.getItem('loginData')){
+      navigate('/')
+    }
+    else{
+      navigate('/login')
+    }
+  },[navigate])
 
   const handleSubmit = async (values) => {
    
@@ -29,7 +36,7 @@ const Login = () => {
       if (user) {
         localStorage.setItem("loginData", [values.email, values.password]);
         toast.success("login successfull");
-        <Navigate to={'/'} />
+        navigate('/')
       } else {
         toast.error("invalid credeentials");
       }
