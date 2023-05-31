@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import { Outlet } from 'react-router';
+import { Outlet } from "react-router";
 import Login from "../pages/Login";
 
 const PrivateRoute = () => {
-    let isLogin = (localStorage.getItem('loginData'));
-    console.log(isLogin)
-    return (
-      (isLogin) ? <Outlet /> : <Login />
-    )
-}
+  const [data, setData] = useState(null);
 
-export default PrivateRoute
-  
+  useEffect(() => {
+    setData(localStorage.getItem("loginData"));
+  }, [localStorage.getItem("loginData")]);
+
+  return data !== null ? <Outlet /> : <Login />;
+};
+export default PrivateRoute;

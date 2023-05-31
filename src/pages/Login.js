@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { TextField, Button, Container, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -12,10 +12,10 @@ const Login = () => {
   
 
   const handleSubmit = async (values) => {
+   
     if (localStorage.getItem("loginData")) {
       localStorage.removeItem("loginData");
     }
-    
 
     try {
       const response = await axios.get(
@@ -29,7 +29,7 @@ const Login = () => {
       if (user) {
         localStorage.setItem("loginData", [values.email, values.password]);
         toast.success("login successfull");
-        navigate("/");
+        <Navigate to={'/'} />
       } else {
         toast.error("invalid credeentials");
       }
