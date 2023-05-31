@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import Navbar from '../components/Navbar'
-import { Button } from '@mui/material'
+import { Button, FormGroup } from '@mui/material'
 import { styled } from '@mui/system'
 import { Modal, TextField , TableBody , TableCell , TableContainer , TableRow } from '@mui/material'
 import { FormControl , InputLabel  } from '@mui/material'
@@ -102,21 +102,23 @@ const Home = () => {
                         <button type="submit">Add Post</button>
                     </form> */}
 
+                    <FormGroup>
+                    
+                            <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+                                <TextField id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                            </FormControl>
 
-                    <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
-                        <TextField id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
-                    </FormControl>
+                            <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+                                <TextField id="body" value={body} onChange={(e) => setBody(e.target.value)} />
+                            </FormControl>
 
-                    <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
-                        <TextField id="body" value={body} onChange={(e) => setBody(e.target.value)} />
-                    </FormControl>
+                            <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+                                <TextField id="userId" value={userId} onChange={(e) => setUserId(e.target.value)} />
+                            </FormControl>
 
-                    <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
-                        <TextField id="userId" value={userId} onChange={(e) => setUserId(e.target.value)} />
-                    </FormControl>
+                            <Button onClick={() => addPost(title, body, userId)} variant="contained" color="success">Add Post</Button>
 
-                    <Button onClick={() => addPost(title, body, userId)} variant="contained" color="success">Add Post</Button>
-
+                    </FormGroup>
                     {
                         loading ? <h1>Loading...</h1> :
                             <TableContainer>
